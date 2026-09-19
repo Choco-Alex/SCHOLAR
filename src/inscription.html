@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inscription | Scholar</title>
+    <link rel="stylesheet" href="./assets/css/output.css" />
+  </head>
+  <body class="min-h-screen bg-[#E9E9F5] flex items-center justify-center p-6">
+    <main
+      class="w-full max-w-5xl min-h-[80vh] rounded-[30px] overflow-hidden shadow-[0_20px_60px_rgba(13,14,109,0.12)] flex flex-col md:flex-row"
+    >
+      <aside
+        class="bg-[#0D0E6D] text-white w-full md:w-[38%] flex flex-col justify-center items-center p-8 md:p-10"
+      >
+        <img
+          src="./assets/images/logo.png"
+          alt="Logo Scholar"
+          class="w-28 h-28 object-contain mb-6"
+        />
+        <h1 class="text-3xl md:text-4xl font-extrabold text-center">SCHOLAR</h1>
+        <p class="mt-4 text-lg text-white font-semibold text-center">
+          Bon retour parmi nous !
+        </p>
+        <p class="text-[#A6E77C] text-center font-semibold">
+          <span class="text-[30px]">‘‘</span>S’inscrire pour commencer a profiter de l’ensemble des fonctionnalités de l’application<span class="text-[30px]">’’</span>
+        </p>
+      </aside>
+
+      <section
+        class="bg-white flex-1 flex items-center justify-center p-8 md:p-12"
+      >
+        <div class="w-full max-w-md">
+          <div class="relative shadow-xl/20 w-full">
+            <h2 class="mt-0 text-3xl pb-3 md:text-4xl font-bold text-[#0D0E6D] text-center">
+              Inscription
+            </h2>
+          </div>
+
+          <form class="mt-8 space-y-5">
+            <div>
+              <label
+                for="name"
+                class="block max-md:text-[20px] text-[20px] font-medium text-[#0D0E6D] mb-2"
+                >Nom</label
+              >
+              <input
+                id="name"
+                type="text"
+                placeholder="Entrer votre nom"
+                class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A6E77C] shadow-xl/30 "
+              />
+            </div>
+
+            <div>
+              <label
+                for="prenom"
+                class="block max-md:text-[20px] text-[20px] font-medium text-[#0D0E6D] mb-2"
+                >Prenom</label
+              >
+              <input
+                id="prenom"
+                type="prenom"
+                placeholder="Entrer votre prénom"
+                class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A6E77C] shadow-xl/30"
+              />
+            </div>
+
+             <div>
+              <label
+                for="number"
+                class="block max-md:text-[20px] text-[20px] font-medium text-[#0D0E6D] mb-2"
+                >Téléphone</label
+              >
+              <input
+                id="number"
+                type=""
+                placeholder="Entrer votre numéro de téléphone"
+                class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#A6E77C] shadow-xl/30"
+              />
+            </div>
+
+            <div>
+              <label
+                for="rule"
+                class="block max-md:text-[20px] text-[20px] font-medium text-[#0D0E6D] mb-2"
+                >Rôle</label
+              >
+              <select
+                name="rule"
+                id="rule"
+                class="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-[#0D0E6D] focus:outline-none focus:ring-2 focus:ring-[#A6E77C] shadow-xl/30"
+              >
+                <option value="administrateur">Administrateur</option>
+                <option value="etudiant">Etudiant</option>
+                <option value="enseignant">Enseignant</option>
+                <option value="parent">Parent</option>
+              </select>
+            </div>
+
+
+            <button
+              type="submit"
+              class="mt-4 w-full rounded-xl bg-[#0D0E6D] px-4 py-3 text-lg font-bold text-white transition hover:bg-[#3e3f8b] hover:shadow-xl/30 focus:outline-none focus:ring-2 focus:ring-[#A6E77C] shadow-xl/30"
+            >
+              Se connecter
+            </button>
+          </form>
+
+          <p class="mt-6 text-center font-bold text-sm text-gray-600">
+            J'ai déjà un compte?
+            <a
+              href="./connexion.html"
+              class="font-semibold text-[#0D0E6D] hover:text-[#A6E77C]"
+              >Se connecter</a
+            >
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
