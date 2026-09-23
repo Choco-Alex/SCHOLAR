@@ -1,11 +1,309 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceuil</title>
-</head>
-<body>
-    
-</body>
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scholar - Accueil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              scholarDark: "#121238",
+              scholarSidebar: "#18184A",
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body
+    class="bg-[#f0f2f5] font-sans antialiased text-gray-800 flex h-screen overflow-hidden"
+  >
+    <!-- Overlay mobile -->
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"
+    ></div>
+
+    <!-- SIDEBAR -->
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-50 w-64 bg-[#0D0E6D] text-white flex flex-col justify-between transition-transform duration-300 transform -translate-x-full md:translate-x-0 md:static shadow-xl overflow-hidden"
+    >
+      <div>
+        <!-- Logo Section -->
+        <div class="h-32 flex items-center justify-center w-full pt-4">
+          <img
+            src="./assets/images/logo.png"
+            alt="Logo"
+            class="h-20 object-contain"
+          />
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="mt-2 pl-3 space-y-1 flex-1 flex flex-col justify-around">
+          <!-- Élément Accueil actif : arrondi à gauche, s'étend jusqu'au bord droit -->
+          <a
+            href="accueil.html"
+            class="flex items-center space-x-3 pl-4 pr-3 py-3 rounded-l-2xl bg-[#f0f2f5] e text-[#18184A] font-semibold shadow-md transition relative -mr-px"
+          >
+            <i class="fa-solid fa-table-cells-large text-lg"></i>
+            <span>Accueil</span>
+          </a>
+
+          <!-- Autres éléments (padding à droite normal pour garder la marge) -->
+          <a
+            href="etablissement.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-building-columns text-lg"></i>
+            <span>Etablissements</span>
+          </a>
+          <a
+            href="paiement.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-credit-card text-lg"></i>
+            <span>Paiement</span>
+          </a>
+          <a
+            href="new_student.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-user-plus text-lg"></i>
+            <span>Nouveau un élève</span>
+          </a>
+          <a
+            href="historique.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-clock-rotate-left text-lg"></i>
+            <span>Historique des paiements</span>
+          </a>
+          <a
+            href="my_account.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-user-gear text-lg"></i>
+            <span>Mon Compte</span>
+          </a>
+          <a
+            href="support.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-headset text-lg"></i>
+            <span>Support client</span>
+          </a>
+          <a
+            href="about.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-circle-info text-lg"></i>
+            <span>A propos</span>
+          </a>
+          <a
+            href="contact.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-at text-lg"></i>
+            <span>Contactez Nous</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Logout -->
+      <div class="p-4 border-t border-indigo-900/50">
+        <a
+          href="#"
+          class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-300 hover:bg-red-600/20 hover:text-red-400 transition"
+        >
+          <i class="fa-solid fa-right-from-bracket text-lg"></i>
+          <span>Déconnexion</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+      <!-- TOP HEADER -->
+      <header
+        class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between shadow-sm z-30"
+      >
+        <div class="flex items-center space-x-4">
+          <button
+            id="menu-btn"
+            class="md:hidden text-gray-700 focus:outline-none"
+          >
+            <i class="fa-solid fa-bars text-2xl"></i>
+          </button>
+          <div class="flex items-center space-x-2 text-gray-800">
+            <i class="fa-solid fa-table-cells-large text-[#18184A] text-xl"></i>
+            <h1 class="text-xl font-bold text-[#18184A]">Accueil</h1>
+          </div>
+        </div>
+
+        <!-- Barre de recherche -->
+        <div class="hidden lg:flex items-center relative w-96">
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900 text-lg"
+          ></i>
+          <input
+            type="text"
+            placeholder="Recherche"
+            class="w-full bg-gray-50 border border-gray-300 rounded-full py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A] transition"
+          />
+        </div>
+
+        <!-- Profil Utilisateur -->
+        <div class="flex items-center space-x-3">
+          <span class="text-sm font-semibold text-gray-700">KOM Alex</span>
+          <div
+            class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-[#18184A] border border-indigo-200 shadow-sm cursor-pointer hover:bg-indigo-200 transition"
+          >
+            <i class="fa-solid fa-user text-lg"></i>
+          </div>
+          <i
+            class="fa-solid fa-chevron-down text-xs text-gray-500 cursor-pointer"
+          ></i>
+        </div>
+      </header>
+
+      <!-- Recherche mobile -->
+      <div class="p-4 bg-white border-b border-gray-200 lg:hidden">
+        <div class="flex items-center relative w-full">
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900"
+          ></i>
+          <input
+            type="text"
+            placeholder="Recherche"
+            class="w-full bg-gray-50 border border-gray-300 rounded-full py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+          />
+        </div>
+      </div>
+
+      <!-- CONTENU SCROLLABLE -->
+      <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-8 bg-[#f8f9fc]">
+        <!-- Message de Bienvenue -->
+        <div class="flex justify-center md:justify-start">
+          <h2 class="text-xl md:text-2xl font-bold text-[#18184A]">
+            Welcome back <span class="italic font-normal">Mr KOM Alex</span>
+          </h2>
+        </div>
+
+        <!-- Section Bannière -->
+        <div
+          class="relative bg-[#070857] rounded-[2.5rem] px-8 pt-8 md:px-12 md:pt-10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between"
+        >
+          <!-- Texte et citations -->
+          <div class="relative z-10 max-w-xl space-y-3 pb-6 md:pb-0">
+            <span
+              class="text-4xl md:text-5xl text-[#22c55e] font-serif leading-none block"
+              >“</span
+            >
+            <p
+              class="text-base md:text-lg lg:text-xl text-white font-medium leading-relaxed tracking-wide"
+            >
+              Scholar est une application web a été créée pour faciliter le
+              paiement des frais de scolarité. Les parents économiseront ainsi
+              du temps et de l'argent puisqu'ils n'auront plus besoin de
+              transporter plusieurs cartes ou d'effectuer plusieurs paiements.
+              L'application est facile à utiliser et peut être consultée depuis
+              n'importe quel appareil.
+            </p>
+            <div class="text-right">
+              <span
+                class="text-4xl md:text-5xl text-[#22c55e] font-serif leading-none"
+                >”</span
+              >
+            </div>
+          </div>
+
+          <!-- Image à droite -->
+          <img
+            src="./assets/images/accueil.png"
+            alt="accueil"
+            class="absolute right-20 -top-20 hidden md:flex"
+          />
+        </div>
+
+        <!-- Grille de navigation rapide -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+          <a href="etablissement.html">
+            <div
+              class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-300 group flex flex-col"
+            >
+              <div class="p-5 flex items-center justify-center bg-gray-50 h-44">
+                <img
+                  src="./assets/images/bc35f921c9229dc5f75966c910ea62638044e604.png"
+                  alt="Etablissements"
+                  class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition duration-300"
+                />
+              </div>
+              <div class="p-4 text-center border-t border-gray-100 bg-white">
+                <h3 class="font-bold text-[#18184A] text-base">
+                  Etablissements
+                </h3>
+              </div>
+            </div>
+          </a>
+          <a href="paiement.html">
+            <div
+              class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-300 group flex flex-col"
+            >
+              <div class="p-5 flex items-center justify-center bg-gray-50 h-44">
+                <img
+                  src="./assets/images/paiement.png"
+                  alt="Paiement"
+                  class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition duration-300"
+                />
+              </div>
+              <div class="p-4 text-center border-t border-gray-100 bg-white">
+                <h3 class="font-bold text-[#18184A] text-base">Paiement</h3>
+              </div>
+            </div>
+          </a>
+          <a href="new_student.html">
+            <div
+              class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-300 group flex flex-col sm:col-span-2 lg:col-span-1"
+            >
+              <div class="p-5 flex items-center justify-center bg-gray-50 h-44">
+                <img
+                  src="./assets/images/new_student.png"
+                  alt="Nouveau un élève"
+                  class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition duration-300"
+                />
+              </div>
+              <div class="p-4 text-center border-t border-gray-100 bg-white">
+                <h3 class="font-bold text-[#18184A] text-base">
+                  Nouveau un élève
+                </h3>
+              </div>
+            </div>
+          </a>
+        </div>
+      </main>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+      function toggleSidebar() {
+        sidebar.classList.toggle("-translate-x-full");
+        sidebarOverlay.classList.toggle("hidden");
+      }
+
+      menuBtn.addEventListener("click", toggleSidebar);
+      sidebarOverlay.addEventListener("click", toggleSidebar);
+    </script>
+  </body>
 </html>
