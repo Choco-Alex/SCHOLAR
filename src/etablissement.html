@@ -118,12 +118,27 @@
             <i class="fa-solid fa-bars text-2xl"></i>
           </button>
           <div class="flex items-center space-x-2 text-gray-800">
-            <i class="fa-solid fa-building-columns text-[#18184A] text-xl"></i>
-            <h1 class="text-xl font-bold text-[#18184A]">
+            <i
+              class="fa-solid fa-building-columns text-[#18184A] md:text-[28px] text-[15px]"
+            ></i>
+            <h1 class="md:text-[28px] text-[15px] font-bold text-[#18184A]">
               Etablissements Partenaires
             </h1>
           </div>
         </div>
+
+        <!-- Barre de recherche -->
+        <div class="hidden lg:flex items-center relative w-96">
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900 text-lg"
+          ></i>
+          <input
+            type="text"
+            placeholder="Recherche"
+            class="w-full bg-gray-50 border border-gray-300 rounded-full py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A] transition"
+          />
+        </div>
+
         <div class="flex items-center space-x-3">
           <span class="text-sm font-semibold text-gray-700">Charles</span>
           <div
@@ -133,45 +148,49 @@
           </div>
         </div>
       </header>
+      <!-- corps de la page -->
 
-      <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 bg-[#f8f9fc]">
-        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-          <h2 class="text-lg font-bold text-[#18184A] mb-4">
-            Liste des établissements scolaires
-          </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- Carte établissement exemple -->
-            <div
-              class="border border-gray-200 rounded-xl p-4 flex items-center space-x-4 hover:shadow-md transition"
+      <div class="bg-[#F8F9FC] flex-1 overflow-y-auto p-6">
+        <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-6  italic">
+          Veillez sélectionner votre établissement ou celui de votre enfant pour continuer le processus de paiement des frais de scolarité.
+        </h2>
+        <div class="max-w-5xl bg-white rounded-2xl shadow-md p-6">
+          <label
+            for="establishment-select"
+            class="block text-sm font-semibold text-[#18184A] mb-2"
+          >
+            Sélectionner un établissement
+          </label>
+          <div class="relative">
+            <i
+              class="fa-solid fa-building-columns absolute left-4 top-1/2 -translate-y-1/2 text-[#18184A]"
+            ></i>
+            <select
+              id="establishment-select"
+              class="w-full appearance-none bg-gray-50 border border-gray-300 rounded-xl py-3 pl-11 pr-10 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#18184A]"
             >
-              <div
-                class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center text-[#18184A] font-bold"
-              >
-                PB
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800">
-                  Complexe Scolaire Papyrus
-                </h3>
-                <p class="text-xs text-gray-500">Douala, Cameroun</p>
-              </div>
-            </div>
-            <div
-              class="border border-gray-200 rounded-xl p-4 flex items-center space-x-4 hover:shadow-md transition"
+              <option value="">Choisir un établissement</option>
+              <option value="COLLEGE DAUPHINE">COLLEGE DAUPHINE</option>
+              <option value="POLYTECHNIQUE DE DOUALA">POLYTECHNIQUE DE DOUALA</option>
+              <option value="ECOLE INTERNATIONALE DU VAAL">ECOLE INTERNATIONALE DU VAAL</option>
+            </select>
+            <i
+              class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+            ></i>
+          </div>
+
+          <div class="flex justify-end mt-6">
+            <a
+              id="next-button"
+              href="paiement.html"
+              aria-disabled="true"
+              class="bg-gray-400 text-white px-6 py-3 rounded-lg shadow-md transition cursor-not-allowed"
             >
-              <div
-                class="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center text-[#18184A] font-bold"
-              >
-                LC
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800">Lycée Classique</h3>
-                <p class="text-xs text-gray-500">Yaoundé, Cameroun</p>
-              </div>
-            </div>
+              Suivant <i class="fa-solid fa-circle-right ml-1"></i>
+            </a>
           </div>
         </div>
-      </main>
+      </div>
     </div>
 
     <script>
@@ -184,6 +203,51 @@
       }
       menuBtn.addEventListener("click", toggleSidebar);
       sidebarOverlay.addEventListener("click", toggleSidebar);
+
+      const searchInput = document.querySelector('input[placeholder="Recherche"]');
+      const establishmentSelect = document.getElementById("establishment-select");
+      const nextButton = document.getElementById("next-button");
+
+      function updateNextButton() {
+        const hasSelection = establishmentSelect.value !== "";
+        nextButton.classList.toggle("bg-gray-400", !hasSelection);
+        nextButton.classList.toggle("cursor-not-allowed", !hasSelection);
+        nextButton.classList.toggle("bg-[#0D0E6D]", hasSelection);
+        nextButton.classList.toggle("hover:bg-[#18184A]", hasSelection);
+        nextButton.setAttribute("aria-disabled", String(!hasSelection));
+      }
+
+      establishmentSelect.addEventListener("change", () => {
+        if (establishmentSelect.value) {
+          sessionStorage.setItem("selectedEstablishment", establishmentSelect.value);
+        } else {
+          sessionStorage.removeItem("selectedEstablishment");
+        }
+        updateNextButton();
+      });
+
+      searchInput.addEventListener("input", () => {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        const options = Array.from(establishmentSelect.options).slice(1);
+        const matchingOption = options.find((option) =>
+          option.textContent.toLowerCase().includes(searchTerm)
+        );
+
+        options.forEach((option) => {
+          option.hidden = searchTerm !== "" && !option.textContent.toLowerCase().includes(searchTerm);
+        });
+
+        if (searchTerm) {
+          establishmentSelect.value = matchingOption ? matchingOption.value : "";
+          establishmentSelect.dispatchEvent(new Event("change"));
+        }
+      });
+
+      nextButton.addEventListener("click", (event) => {
+        if (nextButton.getAttribute("aria-disabled") === "true") {
+          event.preventDefault();
+        }
+      });
     </script>
   </body>
 </html>
