@@ -116,6 +116,10 @@
             <h1 class="text-xl font-bold text-[#18184A]">Contactez-nous</h1>
           </div>
         </div>
+        <div class="hidden items-center relative w-96 lg:flex">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900 text-lg"></i>
+          <input type="text" placeholder="Recherche" data-site-search class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]" />
+        </div>
         <div class="flex items-center space-x-3">
           <span class="text-sm font-semibold text-gray-700">Charles</span>
           <div
@@ -125,6 +129,12 @@
           </div>
         </div>
       </header>
+      <div class="bg-white border-b border-gray-200 p-4 lg:hidden">
+        <div class="relative flex items-center">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900"></i>
+          <input type="text" placeholder="Recherche" data-site-search class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]" />
+        </div>
+      </div>
 
       <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 bg-[#f8f9fc]">
         <div
@@ -176,5 +186,6 @@
       menuBtn.addEventListener("click", toggleSidebar);
       sidebarOverlay.addEventListener("click", toggleSidebar);
     </script>
+    <script src="./assets/js/search.js"></script>
   </body>
 </html>

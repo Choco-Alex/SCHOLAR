@@ -10,6 +10,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
+  <style>
+  </style>
   <body
     class="bg-[#f0f2f5] font-sans antialiased text-gray-800 flex h-screen overflow-hidden"
   >
@@ -135,6 +137,7 @@
           <input
             type="text"
             placeholder="Recherche"
+            data-site-search
             class="w-full bg-gray-50 border border-gray-300 rounded-full py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A] transition"
           />
         </div>
@@ -148,6 +151,17 @@
           </div>
         </div>
       </header>
+      <div class="bg-white border-b border-gray-200 p-4 lg:hidden">
+        <div class="relative flex items-center">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900"></i>
+          <input
+            type="text"
+            placeholder="Recherche"
+            data-site-search
+            class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+          />
+        </div>
+      </div>
       <!-- corps de la page -->
 
       <div class="bg-[#F8F9FC] flex-1 overflow-y-auto p-6">
@@ -161,22 +175,32 @@
           >
             Sélectionner un établissement
           </label>
-          <div class="relative">
-            <i
-              class="fa-solid fa-building-columns absolute left-4 top-1/2 -translate-y-1/2 text-[#18184A]"
-            ></i>
-            <select
-              id="establishment-select"
-              class="w-full appearance-none bg-gray-50 border border-gray-300 rounded-xl py-3 pl-11 pr-10 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#18184A]"
-            >
+          <div class="relative max-w-xs" id="establishment-picker">
+            <select id="establishment-select" class="hidden" aria-hidden="true" tabindex="-1">
               <option value="">Choisir un établissement</option>
               <option value="COLLEGE DAUPHINE">COLLEGE DAUPHINE</option>
               <option value="POLYTECHNIQUE DE DOUALA">POLYTECHNIQUE DE DOUALA</option>
               <option value="ECOLE INTERNATIONALE DU VAAL">ECOLE INTERNATIONALE DU VAAL</option>
+              <option value="COLLEGE JEAN PAUL II">College Jean Paul II</option>
+              <option value="COLLEGE MINF">Colleg Minf</option>
             </select>
-            <i
-              class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
-            ></i>
+            <button
+              id="establishment-trigger"
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              class="flex w-full items-center gap-3 rounded-md border border-gray-300 bg-white px-3 py-2.5 text-left text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+            >
+              <i class="fa-solid fa-building-columns text-[#18184A]"></i>
+              <span id="establishment-label" class="flex-1">Choisir un établissement</span>
+              <i class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+            </button>
+            <div
+              id="establishment-options"
+              role="listbox"
+              aria-label="Établissements disponibles"
+              class="absolute left-0 right-0 top-full z-20 mt-1 hidden max-h-60 overflow-y-auto border border-gray-300 bg-gray-200 shadow-md"
+            ></div>
           </div>
 
           <div class="flex justify-end mt-6">
@@ -204,9 +228,60 @@
       menuBtn.addEventListener("click", toggleSidebar);
       sidebarOverlay.addEventListener("click", toggleSidebar);
 
-      const searchInput = document.querySelector('input[placeholder="Recherche"]');
+      const searchInputs = document.querySelectorAll('input[placeholder="Recherche"]');
       const establishmentSelect = document.getElementById("establishment-select");
       const nextButton = document.getElementById("next-button");
+      const picker = document.getElementById("establishment-picker");
+      const pickerTrigger = document.getElementById("establishment-trigger");
+      const pickerLabel = document.getElementById("establishment-label");
+      const pickerOptions = document.getElementById("establishment-options");
+
+      function closePicker() {
+        pickerOptions.classList.add("hidden");
+        pickerTrigger.setAttribute("aria-expanded", "false");
+        pickerTrigger.querySelector("i").classList.remove("rotate-180");
+      }
+
+      Array.from(establishmentSelect.options).slice(1).forEach((option) => {
+        const optionButton = document.createElement("button");
+        optionButton.type = "button";
+        optionButton.setAttribute("role", "option");
+        optionButton.setAttribute("aria-selected", "false");
+        optionButton.dataset.value = option.value;
+        optionButton.className =
+          "flex w-full items-center gap-3 border-b border-gray-400 px-3 py-2.5 text-left text-sm text-gray-700 last:border-b-0 hover:bg-gray-300 focus:bg-gray-300 focus:outline-none";
+        optionButton.innerHTML =
+          '<i class="fa-solid fa-chevron-right text-xs text-[#18184A]"></i>';
+        optionButton.append(document.createTextNode(option.textContent));
+        optionButton.addEventListener("click", () => {
+          establishmentSelect.value = option.value;
+          establishmentSelect.dispatchEvent(new Event("change", { bubbles: true }));
+          closePicker();
+        });
+        pickerOptions.append(optionButton);
+      });
+
+      pickerTrigger.addEventListener("click", () => {
+        const isOpen = pickerTrigger.getAttribute("aria-expanded") === "true";
+        pickerOptions.classList.toggle("hidden", isOpen);
+        pickerTrigger.setAttribute("aria-expanded", String(!isOpen));
+        pickerTrigger.querySelector("i").classList.toggle("rotate-180", !isOpen);
+      });
+
+      establishmentSelect.addEventListener("change", () => {
+        const selectedOption = establishmentSelect.selectedOptions[0];
+        pickerLabel.textContent = selectedOption.textContent;
+        pickerOptions.querySelectorAll('[role="option"]').forEach((optionButton) => {
+          optionButton.setAttribute(
+            "aria-selected",
+            String(optionButton.dataset.value === establishmentSelect.value)
+          );
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!picker.contains(event.target)) closePicker();
+      });
 
       function updateNextButton() {
         const hasSelection = establishmentSelect.value !== "";
@@ -226,21 +301,30 @@
         updateNextButton();
       });
 
-      searchInput.addEventListener("input", () => {
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        const options = Array.from(establishmentSelect.options).slice(1);
-        const matchingOption = options.find((option) =>
-          option.textContent.toLowerCase().includes(searchTerm)
-        );
+      searchInputs.forEach((searchInput) => {
+        searchInput.addEventListener("input", () => {
+          const searchTerm = searchInput.value.trim().toLowerCase();
+          searchInputs.forEach((otherInput) => {
+            if (otherInput !== searchInput) otherInput.value = searchInput.value;
+          });
+          const options = Array.from(establishmentSelect.options).slice(1);
+          const matchingOption = options.find((option) =>
+            option.textContent.toLowerCase().includes(searchTerm)
+          );
 
-        options.forEach((option) => {
-          option.hidden = searchTerm !== "" && !option.textContent.toLowerCase().includes(searchTerm);
+          options.forEach((option) => {
+            option.hidden = searchTerm !== "" && !option.textContent.toLowerCase().includes(searchTerm);
+          });
+          pickerOptions.querySelectorAll('[role="option"]').forEach((optionButton) => {
+            const option = options.find((item) => item.value === optionButton.dataset.value);
+            optionButton.hidden = searchTerm !== "" && !option.textContent.toLowerCase().includes(searchTerm);
+          });
+
+          if (searchTerm) {
+            establishmentSelect.value = matchingOption ? matchingOption.value : "";
+            establishmentSelect.dispatchEvent(new Event("change"));
+          }
         });
-
-        if (searchTerm) {
-          establishmentSelect.value = matchingOption ? matchingOption.value : "";
-          establishmentSelect.dispatchEvent(new Event("change"));
-        }
       });
 
       nextButton.addEventListener("click", (event) => {
@@ -249,5 +333,6 @@
         }
       });
     </script>
+    <script src="./assets/js/search.js"></script>
   </body>
 </html>
