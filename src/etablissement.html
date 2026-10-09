@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scholar - Établissements</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <style></style>
+  <body
+    class="bg-[#f0f2f5] font-sans antialiased text-gray-800 flex h-screen overflow-hidden"
+  >
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"
+    ></div>
+
+    <!-- SIDEBAR -->
+    <aside
+      id="sidebar"
+      class="fixed inset-y-0 left-0 z-50 w-64 bg-[#0D0E6D] text-white flex flex-col justify-between transition-transform duration-300 transform -translate-x-full md:translate-x-0 md:static shadow-xl overflow-hidden"
+    >
+      <div>
+        <div class="h-32 flex items-center justify-center w-full pt-4">
+          <img
+            src="./assets/images/logo.png"
+            alt="Logo"
+            class="h-20 object-contain"
+          />
+        </div>
+        <nav class="mt-2 pl-3 space-y-1 flex-1 flex flex-col justify-around">
+          <a
+            href="accueil.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-table-cells-large text-lg"></i
+            ><span>Accueil</span>
+          </a>
+          <!-- Actif -->
+          <a
+            href="etablissement.html"
+            class="flex items-center space-x-3 pl-4 pr-3 py-3 rounded-l-2xl bg-[#f0f2f5] text-[#18184A] font-semibold shadow-md transition relative -mr-px"
+          >
+            <i class="fa-solid fa-building-columns text-lg"></i
+            ><span>Etablissements</span>
+          </a>
+          <a
+            href="paiement.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-credit-card text-lg"></i><span>Paiement</span>
+          </a>
+          <a
+            href="new_student.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-user-plus text-lg"></i
+            ><span>Nouveau un élève</span>
+          </a>
+          <a
+            href="new_school.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-school text-lg"></i>
+            <span>Nouveau établissement</span>
+          </a>
+          <a
+            href="historique.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-clock-rotate-left text-lg"></i
+            ><span>Historique des paiements</span>
+          </a>
+          <a
+            href="my_account.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-user-gear text-lg"></i><span>Mon Compte</span>
+          </a>
+          <a
+            href="support.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-headset text-lg"></i
+            ><span>Support client</span>
+          </a>
+          <a
+            href="about.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-circle-info text-lg"></i><span>A propos</span>
+          </a>
+          <a
+            href="contact.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-at text-lg"></i><span>Contactez Nous</span>
+          </a>
+        </nav>
+      </div>
+      <div class="p-4 border-t border-indigo-900/50">
+        <a
+          href="#"
+          class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-300 hover:bg-red-600/20 hover:text-red-400 transition"
+        >
+          <i class="fa-solid fa-right-from-bracket text-lg"></i
+          ><span>Déconnexion</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+      <header
+        class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between shadow-sm z-30"
+      >
+        <div class="flex items-center space-x-4">
+          <button
+            id="menu-btn"
+            class="md:hidden text-gray-700 focus:outline-none"
+          >
+            <i class="fa-solid fa-bars text-2xl"></i>
+          </button>
+          <div class="flex items-center space-x-2 text-gray-800">
+            <i
+              class="fa-solid fa-building-columns text-[#18184A] md:text-[28px] text-[15px]"
+            ></i>
+            <h1 class="md:text-[28px] text-[15px] font-bold text-[#18184A]">
+              Etablissements Partenaires
+            </h1>
+          </div>
+        </div>
+
+        <!-- Barre de recherche -->
+        <div class="hidden lg:flex items-center relative w-96">
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900 text-lg"
+          ></i>
+          <input
+            type="text"
+            placeholder="Recherche"
+            data-site-search
+            class="w-full bg-gray-50 border border-gray-300 rounded-full py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A] transition"
+          />
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <span class="text-sm font-semibold text-gray-700">Charles</span>
+          <div
+            class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-[#18184A] border border-indigo-200 shadow-sm"
+          >
+            <i class="fa-solid fa-user text-lg"></i>
+          </div>
+        </div>
+      </header>
+      <div class="bg-white border-b border-gray-200 p-4 lg:hidden">
+        <div class="relative flex items-center">
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900"
+          ></i>
+          <input
+            type="text"
+            placeholder="Recherche"
+            data-site-search
+            class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+          />
+        </div>
+      </div>
+      <!-- corps de la page -->
+
+      <div class="bg-[#F8F9FC] flex-1 overflow-y-auto p-6">
+        <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-6 italic">
+          Veillez sélectionner votre établissement ou celui de votre enfant pour
+          continuer le processus de paiement des frais de scolarité.
+        </h2>
+        <div class="max-w-5xl bg-white rounded-2xl shadow-md p-6">
+          <label
+            for="establishment-select"
+            class="block text-sm font-semibold text-[#18184A] mb-2"
+          >
+            Sélectionner un établissement
+          </label>
+          <div class="relative max-w-xs" id="establishment-picker">
+            <select
+              id="establishment-select"
+              class="hidden"
+              aria-hidden="true"
+              tabindex="-1"
+            >
+              <option value="">Choisir un établissement</option>
+              <option value="COLLEGE DAUPHINE">COLLEGE DAUPHINE</option>
+              <option value="POLYTECHNIQUE DE DOUALA">
+                POLYTECHNIQUE DE DOUALA
+              </option>
+              <option value="ECOLE INTERNATIONALE DU VAAL">
+                ECOLE INTERNATIONALE DU VAAL
+              </option>
+              <option value="COLLEGE JEAN PAUL II">College Jean Paul II</option>
+              <option value="COLLEGE MINF">Colleg Minfang</option>
+            </select>
+            <button
+              id="establishment-trigger"
+              type="button"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              class="flex w-full items-center gap-3 rounded-md border border-gray-300 bg-white px-3 py-2.5 text-left text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+            >
+              <i class="fa-solid fa-building-columns text-[#18184A]"></i>
+              <span id="establishment-label" class="flex-1"
+                >Choisir un établissement</span
+              >
+              <i
+                class="fa-solid fa-chevron-down text-gray-500 transition-transform"
+              ></i>
+            </button>
+            <div
+              id="establishment-options"
+              role="listbox"
+              aria-label="Établissements disponibles"
+              class="absolute left-0 right-0 top-full z-20 mt-1 hidden max-h-60 overflow-y-auto border border-gray-300 bg-gray-200 shadow-md"
+            ></div>
+          </div>
+
+          <div class="flex justify-end mt-6">
+            <a
+              id="next-button"
+              href="paiement.html"
+              aria-disabled="true"
+              class="bg-gray-400 text-white px-6 py-3 rounded-lg shadow-md transition cursor-not-allowed"
+            >
+              Suivant <i class="fa-solid fa-circle-right ml-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/js/aside.js"></script>
+
+    <script src="./assets/js/etablissement.js"></script>
+    <script src="./assets/js/search.js"></script>
+  </body>
+</html>
