@@ -10,8 +10,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
   </head>
-  <style>
-  </style>
+  <style></style>
   <body
     class="bg-[#f0f2f5] font-sans antialiased text-gray-800 flex h-screen overflow-hidden"
   >
@@ -61,6 +60,13 @@
           >
             <i class="fa-solid fa-user-plus text-lg"></i
             ><span>Nouveau un élève</span>
+          </a>
+          <a
+            href="new_school.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-school text-lg"></i>
+            <span>Nouveau établissement</span>
           </a>
           <a
             href="historique.html"
@@ -153,7 +159,9 @@
       </header>
       <div class="bg-white border-b border-gray-200 p-4 lg:hidden">
         <div class="relative flex items-center">
-          <i class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900"></i>
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900"
+          ></i>
           <input
             type="text"
             placeholder="Recherche"
@@ -165,8 +173,9 @@
       <!-- corps de la page -->
 
       <div class="bg-[#F8F9FC] flex-1 overflow-y-auto p-6">
-        <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-6  italic">
-          Veillez sélectionner votre établissement ou celui de votre enfant pour continuer le processus de paiement des frais de scolarité.
+        <h2 class="text-lg md:text-xl font-semibold text-gray-800 mb-6 italic">
+          Veillez sélectionner votre établissement ou celui de votre enfant pour
+          continuer le processus de paiement des frais de scolarité.
         </h2>
         <div class="max-w-5xl bg-white rounded-2xl shadow-md p-6">
           <label
@@ -176,11 +185,20 @@
             Sélectionner un établissement
           </label>
           <div class="relative max-w-xs" id="establishment-picker">
-            <select id="establishment-select" class="hidden" aria-hidden="true" tabindex="-1">
+            <select
+              id="establishment-select"
+              class="hidden"
+              aria-hidden="true"
+              tabindex="-1"
+            >
               <option value="">Choisir un établissement</option>
               <option value="COLLEGE DAUPHINE">COLLEGE DAUPHINE</option>
-              <option value="POLYTECHNIQUE DE DOUALA">POLYTECHNIQUE DE DOUALA</option>
-              <option value="ECOLE INTERNATIONALE DU VAAL">ECOLE INTERNATIONALE DU VAAL</option>
+              <option value="POLYTECHNIQUE DE DOUALA">
+                POLYTECHNIQUE DE DOUALA
+              </option>
+              <option value="ECOLE INTERNATIONALE DU VAAL">
+                ECOLE INTERNATIONALE DU VAAL
+              </option>
               <option value="COLLEGE JEAN PAUL II">College Jean Paul II</option>
               <option value="COLLEGE MINF">Colleg Minfang</option>
             </select>
@@ -192,8 +210,12 @@
               class="flex w-full items-center gap-3 rounded-md border border-gray-300 bg-white px-3 py-2.5 text-left text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#18184A]"
             >
               <i class="fa-solid fa-building-columns text-[#18184A]"></i>
-              <span id="establishment-label" class="flex-1">Choisir un établissement</span>
-              <i class="fa-solid fa-chevron-down text-gray-500 transition-transform"></i>
+              <span id="establishment-label" class="flex-1"
+                >Choisir un établissement</span
+              >
+              <i
+                class="fa-solid fa-chevron-down text-gray-500 transition-transform"
+              ></i>
             </button>
             <div
               id="establishment-options"
@@ -216,123 +238,9 @@
         </div>
       </div>
     </div>
+    <script src="./assets/js/aside.js"></script>
 
-    <script>
-      const menuBtn = document.getElementById("menu-btn");
-      const sidebar = document.getElementById("sidebar");
-      const sidebarOverlay = document.getElementById("sidebar-overlay");
-      function toggleSidebar() {
-        sidebar.classList.toggle("-translate-x-full");
-        sidebarOverlay.classList.toggle("hidden");
-      }
-      menuBtn.addEventListener("click", toggleSidebar);
-      sidebarOverlay.addEventListener("click", toggleSidebar);
-
-      const searchInputs = document.querySelectorAll('input[placeholder="Recherche"]');
-      const establishmentSelect = document.getElementById("establishment-select");
-      const nextButton = document.getElementById("next-button");
-      const picker = document.getElementById("establishment-picker");
-      const pickerTrigger = document.getElementById("establishment-trigger");
-      const pickerLabel = document.getElementById("establishment-label");
-      const pickerOptions = document.getElementById("establishment-options");
-
-      function closePicker() {
-        pickerOptions.classList.add("hidden");
-        pickerTrigger.setAttribute("aria-expanded", "false");
-        pickerTrigger.querySelector("i").classList.remove("rotate-180");
-      }
-
-      Array.from(establishmentSelect.options).slice(1).forEach((option) => {
-        const optionButton = document.createElement("button");
-        optionButton.type = "button";
-        optionButton.setAttribute("role", "option");
-        optionButton.setAttribute("aria-selected", "false");
-        optionButton.dataset.value = option.value;
-        optionButton.className =
-          "flex w-full items-center gap-3 border-b border-gray-400 px-3 py-2.5 text-left text-sm text-gray-700 last:border-b-0 hover:bg-gray-300 focus:bg-gray-300 focus:outline-none";
-        optionButton.innerHTML =
-          '<i class="fa-solid fa-chevron-right text-xs text-[#18184A]"></i>';
-        optionButton.append(document.createTextNode(option.textContent));
-        optionButton.addEventListener("click", () => {
-          establishmentSelect.value = option.value;
-          establishmentSelect.dispatchEvent(new Event("change", { bubbles: true }));
-          closePicker();
-        });
-        pickerOptions.append(optionButton);
-      });
-
-      pickerTrigger.addEventListener("click", () => {
-        const isOpen = pickerTrigger.getAttribute("aria-expanded") === "true";
-        pickerOptions.classList.toggle("hidden", isOpen);
-        pickerTrigger.setAttribute("aria-expanded", String(!isOpen));
-        pickerTrigger.querySelector("i").classList.toggle("rotate-180", !isOpen);
-      });
-
-      establishmentSelect.addEventListener("change", () => {
-        const selectedOption = establishmentSelect.selectedOptions[0];
-        pickerLabel.textContent = selectedOption.textContent;
-        pickerOptions.querySelectorAll('[role="option"]').forEach((optionButton) => {
-          optionButton.setAttribute(
-            "aria-selected",
-            String(optionButton.dataset.value === establishmentSelect.value)
-          );
-        });
-      });
-
-      document.addEventListener("click", (event) => {
-        if (!picker.contains(event.target)) closePicker();
-      });
-
-      function updateNextButton() {
-        const hasSelection = establishmentSelect.value !== "";
-        nextButton.classList.toggle("bg-gray-400", !hasSelection);
-        nextButton.classList.toggle("cursor-not-allowed", !hasSelection);
-        nextButton.classList.toggle("bg-[#0D0E6D]", hasSelection);
-        nextButton.classList.toggle("hover:bg-[#18184A]", hasSelection);
-        nextButton.setAttribute("aria-disabled", String(!hasSelection));
-      }
-
-      establishmentSelect.addEventListener("change", () => {
-        if (establishmentSelect.value) {
-          sessionStorage.setItem("selectedEstablishment", establishmentSelect.value);
-        } else {
-          sessionStorage.removeItem("selectedEstablishment");
-        }
-        updateNextButton();
-      });
-
-      searchInputs.forEach((searchInput) => {
-        searchInput.addEventListener("input", () => {
-          const searchTerm = searchInput.value.trim().toLowerCase();
-          searchInputs.forEach((otherInput) => {
-            if (otherInput !== searchInput) otherInput.value = searchInput.value;
-          });
-          const options = Array.from(establishmentSelect.options).slice(1);
-          const matchingOption = options.find((option) =>
-            option.textContent.toLowerCase().includes(searchTerm)
-          );
-
-          options.forEach((option) => {
-            option.hidden = searchTerm !== "" && !option.textContent.toLowerCase().includes(searchTerm);
-          });
-          pickerOptions.querySelectorAll('[role="option"]').forEach((optionButton) => {
-            const option = options.find((item) => item.value === optionButton.dataset.value);
-            optionButton.hidden = searchTerm !== "" && !option.textContent.toLowerCase().includes(searchTerm);
-          });
-
-          if (searchTerm) {
-            establishmentSelect.value = matchingOption ? matchingOption.value : "";
-            establishmentSelect.dispatchEvent(new Event("change"));
-          }
-        });
-      });
-
-      nextButton.addEventListener("click", (event) => {
-        if (nextButton.getAttribute("aria-disabled") === "true") {
-          event.preventDefault();
-        }
-      });
-    </script>
+    <script src="./assets/js/etablissement.js"></script>
     <script src="./assets/js/search.js"></script>
   </body>
 </html>

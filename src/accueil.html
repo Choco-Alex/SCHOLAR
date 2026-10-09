@@ -80,6 +80,13 @@
             <span>Nouveau un élève</span>
           </a>
           <a
+            href="new_school.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-school text-lg"></i>
+            <span>Nouveau établissement</span>
+          </a>
+          <a
             href="historique.html"
             class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
           >
@@ -245,7 +252,7 @@
                 <img
                   src="./assets/images/bc35f921c9229dc5f75966c910ea62638044e604.png"
                   alt="Etablissements"
-                  class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition duration-300"
+                  class="w-full h-full object-contain rounded-xl group-hover:scale-105 transition duration-300"
                 />
               </div>
               <div class="p-4 text-center border-t border-gray-100 bg-white">
@@ -263,7 +270,7 @@
                 <img
                   src="./assets/images/paiement.png"
                   alt="Paiement"
-                  class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition duration-300"
+                  class="w-full h-full object-contain rounded-xl group-hover:scale-105 transition duration-300"
                 />
               </div>
               <div class="p-4 text-center border-t border-gray-100 bg-white">
@@ -279,7 +286,7 @@
                 <img
                   src="./assets/images/new_student.png"
                   alt="Nouveau un élève"
-                  class="w-full h-full object-cover rounded-xl group-hover:scale-105 transition duration-300"
+                  class="w-full h-full object-contain rounded-xl group-hover:scale-105 transition duration-300"
                 />
               </div>
               <div class="p-4 text-center border-t border-gray-100 bg-white">
@@ -294,19 +301,7 @@
     </div>
 
     <!-- Script JavaScript -->
-    <script>
-      const menuBtn = document.getElementById("menu-btn");
-      const sidebar = document.getElementById("sidebar");
-      const sidebarOverlay = document.getElementById("sidebar-overlay");
-
-      function toggleSidebar() {
-        sidebar.classList.toggle("-translate-x-full");
-        sidebarOverlay.classList.toggle("hidden");
-      }
-
-      menuBtn.addEventListener("click", toggleSidebar);
-      sidebarOverlay.addEventListener("click", toggleSidebar);
-    </script>
+    <script src="./assets/js/aside.js"></script>
     <script src="./assets/js/search.js"></script>
   </body>
 </html>
