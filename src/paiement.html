@@ -226,22 +226,6 @@
                 class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A] disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <option value="">-- Choisir une classe --</option>
-                <optgroup label="Premier cycle">
-                  <option value="6eme">6ème</option>
-                  <option value="5eme">5ème</option>
-                  <option value="4eme">4ème</option>
-                  <option value="3eme">3ème</option>
-                </optgroup>
-                <optgroup label="Second cycle">
-                  <option value="2nde-a">Seconde A</option>
-                  <option value="2nde-c">Seconde C</option>
-                  <option value="1ere-a">Première A</option>
-                  <option value="1ere-c">Première C</option>
-                  <option value="1ere-d">Première D</option>
-                  <option value="tle-a">Terminale A</option>
-                  <option value="tle-c">Terminale C</option>
-                  <option value="tle-d">Terminale D</option>
-                </optgroup>
               </select>
             </div>
 
@@ -418,6 +402,33 @@
 
     <script src="./assets/js/aside.js"></script>
 
+    <script>
+      // Remplit "Salle de classe" avec les classes de l'établissement choisi (avant paiement.js)
+      (function () {
+        let schools = [];
+        try {
+          schools = JSON.parse(localStorage.getItem("scholar_schools")) || [];
+        } catch (e) {}
+        const selectedName = localStorage.getItem("scholar_selected_school");
+        const school = schools.find(function (s) {
+          return s.name === selectedName;
+        });
+        const select = document.getElementById("class-select");
+        if (school) {
+          school.classes.forEach(function (c) {
+            const opt = document.createElement("option");
+            opt.value = c;
+            opt.textContent = c;
+            select.appendChild(opt);
+          });
+          const nameEl = document.getElementById("establishment-name");
+          if (nameEl && !nameEl.textContent.trim())
+            nameEl.textContent = school.name;
+        } else {
+          select.options[0].textContent = "-- Aucune classe disponible --";
+        }
+      })();
+    </script>
     <script src="./assets/js/paiement.js"></script>
     <script src="./assets/js/paiement_v2.js"></script>
     <script src="./assets/js/search.js"></script>

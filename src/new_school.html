@@ -168,7 +168,7 @@
           <h2 class="text-lg font-bold text-[#18184A] mb-4">
             Informations de l'établissement
           </h2>
-          <form class="space-y-4">
+          <form id="school-form" class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1"
@@ -176,6 +176,7 @@
                 >
                 <input
                   type="text"
+                  id="school-name"
                   placeholder="Ex: Collège INTAC"
                   class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
                 />
@@ -186,6 +187,7 @@
                 >Type d'établissement</label
               >
               <select
+                id="school-type"
                 class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
               >
                 <option>Géneral Francophone</option>
@@ -276,6 +278,11 @@
               </div>
             </div>
 
+            <p
+              id="school-message"
+              class="hidden text-center text-sm font-medium"
+            ></p>
+
             <button
               type="submit"
               class="w-full bg-[#0D0E6D] text-white py-3 rounded-xl font-semibold shadow-md hover:bg-indigo-900 transition"
@@ -289,6 +296,93 @@
 
     <script src="./assets/js/aside.js"></script>
     <script src="./assets/js/new_school.js"></script>
+    <script>
+      // ===== Stockage partagé des établissements (localStorage) =====
+      const SCHOOLS_KEY = "scholar_schools";
+      function getSchools() {
+        try {
+          return JSON.parse(localStorage.getItem(SCHOOLS_KEY)) || [];
+        } catch (e) {
+          return [];
+        }
+      }
+      window.__currentClasses = [];
+
+      // Gestion de la liste temporaire des classes (Alpine.js)
+      function classManager() {
+        return {
+          newClassName: "",
+          classes: [],
+          addClass() {
+            const name = this.newClassName.trim();
+            if (!name) return;
+            if (
+              this.classes.some((c) => c.toLowerCase() === name.toLowerCase())
+            ) {
+              alert("Cette classe existe déjà dans la liste.");
+              return;
+            }
+            this.classes.push(name);
+            this.newClassName = "";
+            window.__currentClasses = this.classes;
+          },
+          removeClass(index) {
+            this.classes.splice(index, 1);
+            window.__currentClasses = this.classes;
+          },
+          saveAll() {
+            document.getElementById("school-form").requestSubmit();
+          },
+        };
+      }
+
+      document
+        .getElementById("school-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const msg = document.getElementById("school-message");
+          const show = (text, ok) => {
+            msg.textContent = text;
+            msg.className =
+              "text-center text-sm font-medium " +
+              (ok ? "text-green-700" : "text-red-600");
+          };
+          const name = document.getElementById("school-name").value.trim();
+          const type = document.getElementById("school-type").value;
+          const classes = [...window.__currentClasses];
+
+          if (!name)
+            return show("Veuillez saisir le nom de l'établissement.", false);
+          if (classes.length === 0)
+            return show(
+              "Veuillez ajouter au moins une salle de classe.",
+              false,
+            );
+
+          const schools = getSchools();
+          if (
+            schools.some((s) => s.name.toLowerCase() === name.toLowerCase())
+          ) {
+            return show("Un établissement portant ce nom existe déjà.", false);
+          }
+          schools.push({ id: Date.now().toString(), name, type, classes });
+          localStorage.setItem(SCHOOLS_KEY, JSON.stringify(schools));
+
+          show(
+            "Établissement « " +
+              name +
+              " » enregistré avec " +
+              classes.length +
+              " classe(s).",
+            true,
+          );
+          document.getElementById("school-name").value = "";
+          // Vider la liste des classes Alpine
+          const comp = document.querySelector("[x-data='classManager()']");
+          if (comp && window.Alpine) Alpine.$data(comp).classes = [];
+          window.__currentClasses = [];
+        });
+    </script>
 
     <script src="./assets/js/search.js"></script>
   </body>

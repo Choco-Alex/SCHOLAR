@@ -192,15 +192,6 @@
               tabindex="-1"
             >
               <option value="">Choisir un établissement</option>
-              <option value="COLLEGE DAUPHINE">COLLEGE DAUPHINE</option>
-              <option value="POLYTECHNIQUE DE DOUALA">
-                POLYTECHNIQUE DE DOUALA
-              </option>
-              <option value="ECOLE INTERNATIONALE DU VAAL">
-                ECOLE INTERNATIONALE DU VAAL
-              </option>
-              <option value="COLLEGE JEAN PAUL II">College Jean Paul II</option>
-              <option value="COLLEGE MINF">Colleg Minfang</option>
             </select>
             <button
               id="establishment-trigger"
@@ -240,7 +231,42 @@
     </div>
     <script src="./assets/js/aside.js"></script>
 
+    <script>
+      // Remplit la liste avec les établissements enregistrés (avant etablissement.js)
+      (function () {
+        let schools = [];
+        try {
+          schools = JSON.parse(localStorage.getItem("scholar_schools")) || [];
+        } catch (e) {}
+        const select = document.getElementById("establishment-select");
+        schools.forEach(function (s) {
+          const opt = document.createElement("option");
+          opt.value = s.name;
+          opt.textContent = s.name;
+          select.appendChild(opt);
+        });
+        if (schools.length === 0) {
+          document.getElementById("establishment-label").textContent =
+            "Aucun établissement enregistré";
+        }
+        // Mémorise l'établissement choisi pour la page paiement
+        select.addEventListener("change", function () {
+          localStorage.setItem("scholar_selected_school", select.value);
+        });
+      })();
+    </script>
     <script src="./assets/js/etablissement.js"></script>
+    <script>
+      // Sécurité : mémoriser aussi le choix au clic sur une option personnalisée
+      document
+        .getElementById("establishment-options")
+        .addEventListener("click", function () {
+          setTimeout(function () {
+            const v = document.getElementById("establishment-select").value;
+            if (v) localStorage.setItem("scholar_selected_school", v);
+          }, 0);
+        });
+    </script>
     <script src="./assets/js/search.js"></script>
   </body>
 </html>
