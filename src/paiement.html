@@ -30,9 +30,7 @@
             class="h-20 object-contain"
           />
         </div>
-        <nav
-          class="mt-2 pl-3 space-y-1 flex-1 flex flex-col justify-around"
-        >
+        <nav class="mt-2 pl-3 space-y-1 flex-1 flex flex-col justify-around">
           <a
             href="accueil.html"
             class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
@@ -58,6 +56,13 @@
             ><i class="fa-solid fa-user-plus text-lg"></i
             ><span>Nouveau un élève</span></a
           >
+          <a
+            href="new_school.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-school text-lg"></i>
+            <span>Nouveau établissement</span>
+          </a>
           <a
             href="historique.html"
             class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
@@ -119,8 +124,15 @@
           </div>
         </div>
         <div class="hidden items-center relative w-96 lg:flex">
-          <i class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900 text-lg"></i>
-          <input type="text" placeholder="Recherche" data-site-search class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]" />
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900 text-lg"
+          ></i>
+          <input
+            type="text"
+            placeholder="Recherche"
+            data-site-search
+            class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+          />
         </div>
         <div class="flex items-center space-x-3">
           <span class="text-sm font-semibold text-gray-700">Charles</span>
@@ -133,82 +145,281 @@
       </header>
       <div class="bg-white border-b border-gray-200 p-4 lg:hidden">
         <div class="relative flex items-center">
-          <i class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900"></i>
-          <input type="text" placeholder="Recherche" data-site-search class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]" />
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900"
+          ></i>
+          <input
+            type="text"
+            placeholder="Recherche"
+            data-site-search
+            class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+          />
         </div>
       </div>
 
       <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 bg-[#f8f9fc]">
+        <!-- Message affiché tant qu'aucun établissement n'a été choisi -->
+        <div
+          id="no-establishment-banner"
+          class="hidden max-w-2xl mx-auto bg-amber-50 border border-amber-300 text-amber-800 rounded-2xl p-4 flex items-start gap-3 shadow-sm"
+        >
+          <i class="fa-solid fa-triangle-exclamation text-xl mt-0.5"></i>
+          <div>
+            <p class="font-semibold">
+              Veuillez d'abord choisir un établissement dans l'onglet
+              Etablissement
+            </p>
+            <p class="text-sm mt-1">
+              La sélection de l'élève et de la tranche de paiement sera
+              disponible une fois l'établissement choisi.
+            </p>
+            <a
+              href="etablissement.html"
+              class="inline-flex items-center gap-2 mt-3 bg-[#0D0E6D] text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-md hover:bg-indigo-900 transition"
+            >
+              <i class="fa-solid fa-building-columns"></i>
+              Choisir un établissement
+            </a>
+          </div>
+        </div>
+
+        <!-- Nom de l'établissement choisi, affiché au dessus du formulaire -->
+        <div
+          id="establishment-summary"
+          class="hidden max-w-2xl mx-auto bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center gap-3"
+        >
+          <div
+            class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-[#18184A] border border-indigo-200"
+          >
+            <i class="fa-solid fa-building-columns"></i>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500 uppercase tracking-wide">
+              Etablissement sélectionné
+            </p>
+            <p id="establishment-name" class="font-bold text-[#18184A]"></p>
+          </div>
+          <a
+            href="etablissement.html"
+            class="ml-auto text-sm text-[#0D0E6D] font-semibold hover:underline"
+            >Changer</a
+          >
+        </div>
+
         <div
           class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 max-w-2xl mx-auto"
         >
           <h2 class="text-lg font-bold text-[#18184A] mb-4">
             Informations de scolarité
           </h2>
-          <form class="space-y-4">
+          <form id="payment-form" class="space-y-5" novalidate>
+            <!-- 1. Salle de classe -->
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1"
-                >Sélectionner l'élève</label
+              <label
+                for="class-select"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >1. Salle de classe</label
               >
               <select
-                class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+                id="class-select"
+                disabled
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A] disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <option>Alexandre Tagne (Classe de Terminale C)</option>
+                <option value="">-- Choisir une classe --</option>
+                <optgroup label="Premier cycle">
+                  <option value="6eme">6ème</option>
+                  <option value="5eme">5ème</option>
+                  <option value="4eme">4ème</option>
+                  <option value="3eme">3ème</option>
+                </optgroup>
+                <optgroup label="Second cycle">
+                  <option value="2nde-a">Seconde A</option>
+                  <option value="2nde-c">Seconde C</option>
+                  <option value="1ere-a">Première A</option>
+                  <option value="1ere-c">Première C</option>
+                  <option value="1ere-d">Première D</option>
+                  <option value="tle-a">Terminale A</option>
+                  <option value="tle-c">Terminale C</option>
+                  <option value="tle-d">Terminale D</option>
+                </optgroup>
               </select>
             </div>
+
+            <!-- 2. Élève -->
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1"
-                >Tranche de paiement</label
+              <label
+                for="student-select"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >2. Sélectionner l'élève</label
               >
               <select
-                class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+                id="student-select"
+                disabled
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A] disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <option>1ère Tranche (Inscription)</option>
-                <option>2ème Tranche</option>
-                <option>Solde complet</option>
+                <option value="">-- Choisir d'abord une classe --</option>
               </select>
             </div>
+
+            <!-- 3. Tranche -->
+            <div>
+              <label
+                for="tranche-select"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >3. Tranche de paiement</label
+              >
+              <select
+                id="tranche-select"
+                disabled
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A] disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                <option value="">-- Choisir une tranche --</option>
+                <option value="inscription" data-amount="25000">
+                  Inscription
+                </option>
+                <option value="tranche1" data-amount="50000">Tranche 1</option>
+                <option value="tranche2" data-amount="40000">Tranche 2</option>
+                <option value="tranche3" data-amount="35000">Tranche 3</option>
+                <option value="solde" data-amount="150000">
+                  Solde complet
+                </option>
+              </select>
+              <p id="amount-display" class="hidden mt-2 text-sm text-gray-600">
+                Montant à payer :
+                <span id="amount-value" class="font-bold text-[#18184A]"></span>
+              </p>
+            </div>
+
+            <!-- 4. Mode de paiement -->
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1"
-                >Mode de paiement mobile</label
+                >4. Mode de paiement mobile</label
               >
               <div class="grid grid-cols-2 gap-4">
                 <button
                   type="button"
-                  class="border-2 border-[#18184A] rounded-xl p-3 font-semibold text-[#18184A] bg-indigo-50/50"
+                  data-method="mtn"
+                  disabled
+                  class="payment-method flex items-center justify-center gap-3 border border-gray-300 rounded-xl p-3 font-semibold text-gray-600 hover:bg-gray-50 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
+                  <!-- Logo MTN Mobile Money -->
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    aria-hidden="true"
+                  >
+                    <rect width="40" height="40" rx="8" fill="#FFCC00" />
+                    <ellipse
+                      cx="20"
+                      cy="20"
+                      rx="16"
+                      ry="10"
+                      fill="none"
+                      stroke="#004F71"
+                      stroke-width="2.5"
+                    />
+                    <text
+                      x="20"
+                      y="24.5"
+                      text-anchor="middle"
+                      font-family="Arial, sans-serif"
+                      font-weight="900"
+                      font-size="12"
+                      fill="#004F71"
+                    >
+                      MTN
+                    </text>
+                  </svg>
                   Mobile Money
                 </button>
                 <button
                   type="button"
-                  class="border border-gray-300 rounded-xl p-3 font-semibold text-gray-600 hover:bg-gray-50"
+                  data-method="orange"
+                  disabled
+                  class="payment-method flex items-center justify-center gap-3 border border-gray-300 rounded-xl p-3 font-semibold text-gray-600 hover:bg-gray-50 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
+                  <!-- Logo Orange Money -->
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 40 40"
+                    aria-hidden="true"
+                  >
+                    <rect width="40" height="40" fill="#000000" />
+                    <rect x="6" y="22" width="28" height="12" fill="#FF7900" />
+                    <text
+                      x="20"
+                      y="17"
+                      text-anchor="middle"
+                      font-family="Arial, sans-serif"
+                      font-weight="700"
+                      font-size="8"
+                      fill="#FFFFFF"
+                    >
+                      orange
+                    </text>
+                  </svg>
                   Orange Money
                 </button>
               </div>
             </div>
+
+            <!-- 5. Numéro de téléphone (apparaît après le choix du mode) -->
+            <div id="phone-block" class="hidden">
+              <label
+                for="phone-input"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >5. Numéro de téléphone <span id="phone-operator"></span
+              ></label>
+              <div class="flex">
+                <span
+                  class="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-gray-300 bg-gray-100 text-sm text-gray-600"
+                  >+237</span
+                >
+                <input
+                  id="phone-input"
+                  type="tel"
+                  inputmode="numeric"
+                  maxlength="9"
+                  placeholder="6XXXXXXXX"
+                  class="w-full bg-gray-50 border border-gray-300 rounded-r-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+                />
+              </div>
+              <p class="mt-1 text-xs text-gray-500">
+                Ce numéro recevra la demande de paiement du montant de la
+                tranche choisie.
+              </p>
+              <p id="phone-error" class="hidden mt-1 text-xs text-red-600"></p>
+            </div>
+
+            <!-- Récapitulatif -->
+            <div
+              id="payment-summary"
+              class="hidden rounded-xl bg-indigo-50/60 border border-indigo-100 p-4 text-sm text-[#18184A] space-y-1"
+            ></div>
+
             <button
+              id="submit-button"
               type="submit"
-              class="w-full bg-[#0D0E6D] text-white py-3 rounded-xl font-semibold shadow-md hover:bg-indigo-900 transition"
+              disabled
+              class="w-full bg-[#0D0E6D] text-white py-3 rounded-xl font-semibold shadow-md hover:bg-indigo-900 transition disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-[#0D0E6D]"
             >
-              Procéder au paiement
+              Valider et procéder au paiement
             </button>
+            <p
+              id="payment-success"
+              class="hidden text-center text-sm font-medium text-green-700"
+            ></p>
           </form>
         </div>
       </main>
     </div>
 
-    <script>
-      const menuBtn = document.getElementById("menu-btn");
-      const sidebar = document.getElementById("sidebar");
-      const sidebarOverlay = document.getElementById("sidebar-overlay");
-      function toggleSidebar() {
-        sidebar.classList.toggle("-translate-x-full");
-        sidebarOverlay.classList.toggle("hidden");
-      }
-      menuBtn.addEventListener("click", toggleSidebar);
-      sidebarOverlay.addEventListener("click", toggleSidebar);
-    </script>
+    <script src="./assets/js/aside.js"></script>
+
+    <script src="./assets/js/paiement.js"></script>
+    <script src="./assets/js/paiement_v2.js"></script>
     <script src="./assets/js/search.js"></script>
   </body>
 </html>

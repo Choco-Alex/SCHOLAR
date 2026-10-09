@@ -56,6 +56,13 @@
             ><span>Nouveau un élève</span></a
           >
           <a
+            href="new_school.html"
+            class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
+          >
+            <i class="fa-solid fa-school text-lg"></i>
+            <span>Nouveau établissement</span>
+          </a>
+          <a
             href="historique.html"
             class="flex items-center space-x-3 px-4 py-3 rounded-xl text-indigo-200 hover:bg-[#232363] hover:text-white transition"
             ><i class="fa-solid fa-clock-rotate-left text-lg"></i
@@ -115,8 +122,15 @@
           </div>
         </div>
         <div class="hidden items-center relative w-96 lg:flex">
-          <i class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900 text-lg"></i>
-          <input type="text" placeholder="Recherche" data-site-search class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]" />
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900 text-lg"
+          ></i>
+          <input
+            type="text"
+            placeholder="Recherche"
+            data-site-search
+            class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+          />
         </div>
         <div class="flex items-center space-x-3">
           <span class="text-sm font-semibold text-gray-700">Charles</span>
@@ -129,8 +143,15 @@
       </header>
       <div class="bg-white border-b border-gray-200 p-4 lg:hidden">
         <div class="relative flex items-center">
-          <i class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900"></i>
-          <input type="text" placeholder="Recherche" data-site-search class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]" />
+          <i
+            class="fa-solid fa-magnifying-glass absolute left-4 text-indigo-900"
+          ></i>
+          <input
+            type="text"
+            placeholder="Recherche"
+            data-site-search
+            class="w-full rounded-full border border-gray-300 bg-gray-50 py-2 pl-12 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
+          />
         </div>
       </div>
 
@@ -171,17 +192,8 @@
       </main>
     </div>
 
-    <script>
-      const menuBtn = document.getElementById("menu-btn");
-      const sidebar = document.getElementById("sidebar");
-      const sidebarOverlay = document.getElementById("sidebar-overlay");
-      function toggleSidebar() {
-        sidebar.classList.toggle("-translate-x-full");
-        sidebarOverlay.classList.toggle("hidden");
-      }
-      menuBtn.addEventListener("click", toggleSidebar);
-      sidebarOverlay.addEventListener("click", toggleSidebar);
-    </script>
+    <script src="./assets/js/aside.js"></script>
+
     <script src="./assets/js/search.js"></script>
   </body>
 </html>

@@ -1,17 +1,16 @@
 (() => {
   const inputs = Array.from(document.querySelectorAll("[data-site-search]"));
   const navigationLinks = Array.from(
-    document.querySelectorAll("#sidebar nav a[href]")
+    document.querySelectorAll("#sidebar nav a[href]"),
   );
-  const hasLocalSearch = Boolean(document.getElementById("establishment-select"));
+  const hasLocalSearch = Boolean(
+    document.getElementById("establishment-select"),
+  );
 
   if (!inputs.length) return;
 
   const normalize = (value) =>
-    value
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLocaleLowerCase("fr");
+    value.normalize("NFD").replace(/[̀-ͯ]/g, "").toLocaleLowerCase("fr");
 
   const resultLists = new Map();
 
@@ -31,7 +30,7 @@
     }
 
     const matches = navigationLinks.filter((link) =>
-      normalize(link.textContent.trim()).includes(normalize(term))
+      normalize(link.textContent.trim()).includes(normalize(term)),
     );
 
     if (matches.length) {
@@ -105,5 +104,4 @@
       closeResults();
     }
   });
-
 })();
