@@ -133,7 +133,7 @@
           />
         </div>
         <div class="flex items-center space-x-3">
-          <span class="text-sm font-semibold text-gray-700">Charles</span>
+          <span class="text-sm font-semibold text-gray-700">Mon compte</span>
           <div
             class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-[#18184A] border border-indigo-200 shadow-sm"
           >
@@ -155,49 +155,52 @@
         </div>
       </div>
 
-      <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 bg-[#f8f9fc]">
-        <div
-          class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 max-w-2xl mx-auto space-y-6"
-        >
-          <div class="flex items-center space-x-4 border-b pb-6">
-            <div
-              class="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center text-[#18184A] text-2xl font-bold"
-            >
-              C
+      <main class="flex-1 overflow-y-auto p-6 md:p-8 bg-[#f8f9fc]">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <section class="bg-[#0D0E6D] text-white rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row sm:items-center gap-5">
+            <div class="w-16 h-16 shrink-0 rounded-full bg-white/15 border border-white/30 flex items-center justify-center text-2xl font-bold">
+              <span id="profile-initial">?</span>
             </div>
-            <div>
-              <h2 class="text-xl font-bold text-[#18184A]">Mr Charles</h2>
-              <p class="text-sm text-gray-500">Compte Parent / Tuteur</p>
+            <div class="min-w-0">
+              <p class="text-sm text-indigo-200">Compte Parent / Tuteur</p>
+              <h2 id="profile-heading" class="text-2xl font-bold break-words">Mon profil</h2>
+              <p class="mt-1 text-sm text-indigo-100">Vos coordonnées enregistrées pour les démarches scolaires.</p>
             </div>
+            <a href="support.html" class="sm:ml-auto inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-lime-200 transition">
+              <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+              Aide du compte
+            </a>
+          </section>
+
+          <div class="grid gap-6 md:grid-cols-[1.2fr_0.8fr]">
+            <section class="bg-white border border-gray-200 rounded-2xl p-6">
+              <div class="mb-5">
+                <p class="text-xs font-semibold uppercase text-gray-500">Coordonnées</p>
+                <h3 class="text-lg font-bold text-[#18184A]">Informations personnelles</h3>
+              </div>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label for="profile-name" class="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
+                  <input id="profile-name" type="text" readonly placeholder="Aucune information enregistrée" class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm text-gray-700" />
+                </div>
+                <div>
+                  <label for="profile-phone" class="block text-sm font-medium text-gray-700 mb-1">Numéro de téléphone</label>
+                  <input id="profile-phone" type="text" readonly placeholder="Aucune information enregistrée" class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm text-gray-700" />
+                </div>
+              </div>
+            </section>
+
+            <section class="border-l-4 border-lime-500 bg-white rounded-r-2xl p-6">
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-lock text-lime-700 mt-1" aria-hidden="true"></i>
+                <div>
+                  <h3 class="font-bold text-[#18184A]">Données du compte</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-gray-600">Ces informations proviennent de l'inscription ou de la connexion et sont conservées sur cet appareil.</p>
+                  <p class="mt-3 text-xs text-gray-500">Le mot de passe n'est pas affiché ni enregistré dans ce profil.</p>
+                </div>
+              </div>
+            </section>
           </div>
-          <form class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1"
-                >Nom complet</label
-              >
-              <input
-                type="text"
-                value="Charles"
-                class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1"
-                >Numéro de téléphone</label
-              >
-              <input
-                type="text"
-                value="+237 600000000"
-                class="w-full bg-gray-50 border border-gray-300 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#18184A]"
-              />
-            </div>
-            <button
-              type="submit"
-              class="bg-[#0D0E6D] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:bg-indigo-900 transition"
-            >
-              Mettre à jour
-            </button>
-          </form>
         </div>
       </main>
     </div>
