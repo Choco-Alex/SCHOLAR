@@ -135,7 +135,7 @@
           />
         </div>
         <div class="flex items-center space-x-3">
-          <span class="text-sm font-semibold text-gray-700">Charles</span>
+          <span class="text-sm font-semibold text-gray-700">Mon compte</span>
           <div
             class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-[#18184A] border border-indigo-200 shadow-sm"
           >
@@ -157,21 +157,55 @@
         </div>
       </div>
 
-      <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 bg-[#f8f9fc]">
-        <div
-          class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 max-w-2xl mx-auto space-y-4"
-        >
-          <h2 class="text-lg font-bold text-[#18184A]">Notre Mission</h2>
-          <p class="text-sm text-gray-600 leading-relaxed">
-            Scholar est une plateforme innovante conçue pour simplifier la
-            gestion et le règlement sécurisé des frais de scolarité. Notre
-            objectif est de fluidifier les interactions entre les parents
-            d'élèves et les établissements scolaires à travers des solutions
-            numériques modernes.
-          </p>
-          <p class="text-xs text-gray-400 pt-4">
-            Version 1.0.0 - Développé pour l'excellence éducative.
-          </p>
+      <main class="flex-1 overflow-y-auto p-6 md:p-8 bg-[#f8f9fc]">
+        <div class="max-w-5xl mx-auto space-y-6">
+          <section class="bg-[#0D0E6D] text-white rounded-2xl p-6 md:p-10 grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+            <div>
+              <p class="text-sm font-semibold text-lime-300">À propos de Scholar</p>
+              <h2 class="mt-2 max-w-2xl text-2xl md:text-3xl font-bold">Une scolarité plus simple, un suivi plus clair.</h2>
+              <p class="mt-3 max-w-2xl text-sm md:text-base leading-relaxed text-indigo-100">Scholar rassemble les démarches de paiement scolaire dans un même espace : établissement, élève, échéance et mode de règlement.</p>
+            </div>
+            <div class="hidden md:flex w-20 h-20 rounded-2xl bg-white/10 border border-white/20 items-center justify-center text-4xl text-lime-300" aria-hidden="true">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+          </section>
+
+          <section class="grid gap-6 md:grid-cols-3">
+            <article class="bg-white border border-gray-200 rounded-2xl p-6">
+              <span class="w-10 h-10 rounded-lg bg-lime-100 text-lime-800 flex items-center justify-center"><i class="fa-solid fa-school" aria-hidden="true"></i></span>
+              <h3 class="mt-4 font-bold text-[#18184A]">Un espace organisé</h3>
+              <p class="mt-2 text-sm leading-relaxed text-gray-600">Retrouvez les établissements, les classes et les élèves avant de choisir une échéance.</p>
+            </article>
+            <article class="bg-white border border-gray-200 rounded-2xl p-6">
+              <span class="w-10 h-10 rounded-lg bg-indigo-100 text-[#18184A] flex items-center justify-center"><i class="fa-solid fa-list-check" aria-hidden="true"></i></span>
+              <h3 class="mt-4 font-bold text-[#18184A]">Des étapes lisibles</h3>
+              <p class="mt-2 text-sm leading-relaxed text-gray-600">Le parcours de paiement guide la sélection de l'élève, de la tranche et de l'opérateur mobile.</p>
+            </article>
+            <article class="bg-white border border-gray-200 rounded-2xl p-6">
+              <span class="w-10 h-10 rounded-lg bg-rose-100 text-rose-800 flex items-center justify-center"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i></span>
+              <h3 class="mt-4 font-bold text-[#18184A]">Pensé pour le mobile</h3>
+              <p class="mt-2 text-sm leading-relaxed text-gray-600">Les pages s'adaptent aux écrans mobiles pour consulter les informations où que vous soyez.</p>
+            </article>
+          </section>
+
+          <section class="bg-white border border-gray-200 rounded-2xl p-6 md:p-8">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+              <div>
+                <p class="text-xs font-semibold uppercase text-gray-500">Le parcours</p>
+                <h3 class="text-xl font-bold text-[#18184A]">Du choix au paiement</h3>
+              </div>
+              <a href="etablissement.html" class="inline-flex items-center gap-2 text-sm font-semibold text-[#0D0E6D] hover:underline">
+                Voir les établissements <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <ol class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <li class="border-t-2 border-lime-500 pt-3"><span class="text-xs font-bold text-gray-500">01</span><p class="mt-1 font-semibold text-[#18184A]">Etablissement</p></li>
+              <li class="border-t-2 border-indigo-300 pt-3"><span class="text-xs font-bold text-gray-500">02</span><p class="mt-1 font-semibold text-[#18184A]">Classe et élève</p></li>
+              <li class="border-t-2 border-rose-300 pt-3"><span class="text-xs font-bold text-gray-500">03</span><p class="mt-1 font-semibold text-[#18184A]">Tranche scolaire</p></li>
+              <li class="border-t-2 border-amber-400 pt-3"><span class="text-xs font-bold text-gray-500">04</span><p class="mt-1 font-semibold text-[#18184A]">Mode de paiement</p></li>
+            </ol>
+          </section>
+          <p class="text-xs text-gray-500">Scholar · Version 1.0.0</p>
         </div>
       </main>
     </div>
